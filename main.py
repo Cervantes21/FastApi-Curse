@@ -1,10 +1,15 @@
 #Python
 from typing import Optional
 from enum import Enum
+from email_validator import validate_email, EmailNotValidError
 
 #Pydantic
 from pydantic import BaseModel
-from pydantic import Field 
+from pydantic import Field
+from pydantic import EmailStr
+from pydantic import HttpUrl
+from pydantic import FilePath
+ 
 
 # FastAPI
 from fastapi import FastAPI
@@ -20,11 +25,58 @@ class HairColor(Enum):
     black = "Black"
     blonde = "Blonde"
     red = "Red"
-
+class Cities(Enum):
+    cuernavaca = "Cuernavaca"
+    temixco = "Temixco"
+    jiutepec = "Jiutepec"
+    tepoztlan = "Tepoztlan"
+    xochitepec = "Xochitepec"
+    zapata = "Emiliano Zapata"
+    cuautla = "Cuautla"
+    yautepec = "Yautepec"
+class States(Enum):
+    ags="Aguascalientes"
+    bjc="Baja California" 
+    bjcs="Baja California Sur"
+    camp="Campeche"
+    chps="Chiapas"
+    chhh="Chihuahua"
+    cdmx="Ciudad de México"
+    coa="Coahuila"
+    col="Colima"
+    dg="Durango"
+    edo_mx="Estado de México"
+    gto="Guanajuato"
+    gro="Guerrero"
+    hdgo="Hidalgo"
+    jal="Jalisco"
+    mich="Michoacán"
+    mor="Morelos"
+    nay="Nayarit"
+    nl="Nuevo León"
+    oax="Oaxaca"
+    pbl="Puebla"
+    qro="Querétaro"
+    qroo="Quintana Roo"
+    slp="San Luis Potosí"
+    snl="Sinaloa"
+    sonora="Sonora"
+    tab="Tabasco"
+    tam="Tamaulipas"
+    tlax="Tlaxcala"
+    ver="Veracruz"
+    yuc="Yucatán"
+    zac="Zacatecas"
+class Countries(Enum):
+    mx="México"
+    arg="Argentina"
+    col="Colombia"
+    br="Brásil"
+        
 class Location(BaseModel):
-    city: str
-    state: str
-    country: str
+    city: str[Cities] = Field(...)
+    state: str[States] = Field(...)
+    country: str[Countries] = Field(...)
 
 class Person(BaseModel):
     first_name: str = Field(
@@ -44,7 +96,17 @@ class Person(BaseModel):
         )
     hair_color: Optional[HairColor] = Field(default=None)
     is_married: Optional[bool] = Field(default=None)
-    
+    email: EmailStr = Field(
+        ...,
+        min_length=8,
+        max_length=200
+        )
+    website: HttpUrl = Field(
+        ...,
+        min_length=1,
+        max_length=2058
+        )
+    avatar: Optional[FilePath] = Field(default=None)
 
 @app.get('/')
 def home():
