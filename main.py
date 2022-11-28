@@ -74,9 +74,10 @@ class Countries(Enum):
     br="Brásil"
         
 class Location(BaseModel):
-    city: str[Cities] = Field(...)
-    state: str[States] = Field(...)
-    country: str[Countries] = Field(...)
+    city: Optional[Cities] = Field(...)
+    state: Optional[States] = Field(...)
+    country: Optional[Countries] = Field(...)
+
 
 class Person(BaseModel):
     first_name: str = Field(
@@ -98,13 +99,12 @@ class Person(BaseModel):
     is_married: Optional[bool] = Field(default=None)
     email: EmailStr = Field(
         ...,
-        min_length=8,
-        max_length=200
+        title='Email',
+        description='The email of the person that will receive the package.'
         )
     website: HttpUrl = Field(
         ...,
-        min_length=1,
-        max_length=2058
+        url='http://www.example.com'
         )
     avatar: Optional[FilePath] = Field(default=None)
 
