@@ -108,6 +108,16 @@ class Person(BaseModel):
         )
     avatar: Optional[FilePath] = Field(default=None)
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "first_name": "Andy",
+                "last_name": "Cervantes",
+                "age": 27,
+                "hair_color": "black",
+                "is_married": True
+            }
+        }
 @app.get('/')
 def home():
     return {'Hello': 'World'}
