@@ -106,25 +106,60 @@ class Person(BaseModel):
         ...,
         url='http://www.example.com'
         )
-    avatar: Optional[FilePath] = Field(default=None)
+    # avatar: Optional[FilePath] = Field(default=None)
+    password: str = Field(
+        ...,
+        min_length=8,
+        max_length=50
+        )
+    # class Config:
+    #     schema_extra = {
+    #         "example": {
+    #             "first_name": "Andy",
+    #             "last_name": "Cervantes",
+    #             "age": 27,
+    #             "hair_color": "black",
+    #             "is_married": True
+    #         }
+    #     }
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "first_name": "Andy",
-                "last_name": "Cervantes",
-                "age": 27,
-                "hair_color": "black",
-                "is_married": True
-            }
-        }
+class PersonOut(BaseModel):
+        first_name: str = Field(
+        ...,
+        min_length=1,
+        max_length=50
+        )
+        last_name: str = Field(
+        ...,
+        min_length=1,
+        max_length=50
+        )
+        age: int = Field(
+        ...,
+        gt=0,
+        le=115
+        )
+        hair_color: Optional[HairColor] = Field(default=None)
+        is_married: Optional[bool] = Field(default=None)
+        email: EmailStr = Field(
+        ...,
+        title='Email',
+        description='The email of the person that will receive the package.'
+        )
+        website: HttpUrl = Field(
+        ...,
+        url='http://www.example.com'
+        )
+        # avatar: Optional[FilePath] = Field(default=None)
+
+
 @app.get('/')
 def home():
     return {'Hello': 'World'}
 
 # Request and Response Body
 
-@app.post('/person/new')
+@app.post('/person/new', response_model=PersonOut)
 def create_person(person: Person = Body(...)):
     return person
 
