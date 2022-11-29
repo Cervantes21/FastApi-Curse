@@ -14,7 +14,7 @@ from pydantic import FilePath
 # FastAPI
 from fastapi import FastAPI
 from fastapi import status
-from fastapi import Body, Query, Path
+from fastapi import Body, Query, Path, Form
 
 
 app = FastAPI()
@@ -154,6 +154,12 @@ class PersonOut(BaseModel):
         )
         # avatar: Optional[FilePath] = Field(default=None)
 
+class LoginOut(BaseModel):
+    username: str = Field(
+        ...,
+        max_length=20,
+        example="maria21"
+        )
 
 @app.get(
     path='/', 
@@ -232,3 +238,13 @@ def update_person(
     results= person.dict()
     results.update(location.dict())
     return person
+
+# Login account
+
+@app.post(
+          path="/login",
+          response_model=LoginOut,
+          status_code=status.HTTP_200_OK
+          )
+def login(username: str = Form(...), password: str = Form(...)):
+    return LoginOut(username=username)
