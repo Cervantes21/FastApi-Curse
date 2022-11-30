@@ -14,6 +14,7 @@ from pydantic import FilePath
 # FastAPI
 from fastapi import FastAPI
 from fastapi import status
+from fastapi import HTTPException
 from fastapi import Body, Query, Path, Form, Header, Cookie, UploadFile, File
 
 
@@ -203,19 +204,26 @@ def show_person(
 
 # Validaciones: Path Parameters
 
+persons = [21, 32, 13, 44, 5, 1]
+
 @app.get(
     path='/person/details/{person_id}',
-    status_code=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION
+    status_code=status.HTTP_200_OK
     )
 def show_person(
     person_id: int = Path(
         ...,
-        gt=0,
-        title="Person Details",
-        description="This is the person details.",
-        example=0000
+        gt= 0,
+        title= "Person ID",
+        description= "This is the person ID. It is required",
+        example= 1
         )
 ):
+    if person_id not in persons:
+        raise HTTPException(
+                status_code= status.HTTP404_NOT_FOUND,
+                details= "This person doesn't exist"
+            )
     return {person_id: "It exists!"}
 
 # Validaciones: Request Body
