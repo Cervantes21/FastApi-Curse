@@ -15,8 +15,11 @@ from pydantic import FilePath
 from fastapi import FastAPI
 from fastapi import status
 from fastapi import HTTPException
-from fastapi import Body, Query, Path, Form, Header, Cookie, UploadFile, File
-
+from fastapi import(
+    Body, Query, Path, Form, 
+    Header, Cookie, 
+    UploadFile, File
+    )
 
 app = FastAPI()
 
@@ -161,9 +164,11 @@ class LoginOut(BaseModel):
         example="maria21"
         )
 
+# Home
 @app.get(
     path='/', 
-    status_code=status.HTTP_200_OK
+    status_code= status.HTTP_200_OK,
+    tags= ["Home"]
     )
 def home():
     return {'Hello': 'World'}
@@ -173,7 +178,8 @@ def home():
 @app.post(
     path='/person/new', 
     response_model=PersonOut,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
+    tags=["Persons"]
     )
 def create_person(person: Person = Body(...)):
     return person
@@ -182,7 +188,8 @@ def create_person(person: Person = Body(...)):
 
 @app.get(
     path="/person/detail",
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
+    tags=["Persons"]
     )
 def show_person(
     name: Optional[str] = Query(
@@ -191,7 +198,7 @@ def show_person(
         max_lenght=50,
         title='Person Name',
         description="This is the person name. It's between 1 and 50 characteres",
-        example="Sarah"
+        example= "Your name"
         ),
     age: str = Query(
         ...,
@@ -208,7 +215,8 @@ persons = [21, 32, 13, 44, 5, 1]
 
 @app.get(
     path='/person/details/{person_id}',
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
+    tags=["Persons"]
     )
 def show_person(
     person_id: int = Path(
@@ -230,7 +238,8 @@ def show_person(
 
 @app.put(
     path="/person/detail/{person_id}",
-    status_code=status.HTTP_207_MULTI_STATUS
+    status_code=status.HTTP_207_MULTI_STATUS,
+    tags=["Persons"]
     )
 def update_person(
     person_id: int = Path(
@@ -252,7 +261,8 @@ def update_person(
 @app.post(
           path="/login",
           response_model=LoginOut,
-          status_code=status.HTTP_200_OK
+          status_code=status.HTTP_200_OK,
+          tags=["Persons"]
           )
 def login(username: str = Form(...), password: str = Form(...)):
     return LoginOut(username=username)
@@ -261,7 +271,8 @@ def login(username: str = Form(...), password: str = Form(...)):
 
 @app.post(
     path="/contact",
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
+    tags=["Contact Forms"]
     )
 def contact(
     first_name: str = Form(
@@ -286,7 +297,8 @@ def contact(
 
 # Files
 @app.post(
-    path="/post-image"
+    path="/post-image",
+    tags=["Upload Image"]
     )
 def post_image(
     image: UploadFile = File(...)
@@ -296,3 +308,5 @@ def post_image(
         "Format": image.content_type,
         "Size(kb)": round(len(image.file.read())/1024, ndigits=2)
     }
+    
+# ~
