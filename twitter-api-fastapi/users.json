@@ -1,1 +1,42 @@
-[]
+[
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "antonella@example.com",
+        "first_name": "Antonella",
+        "last_name": "string",
+        "birth_date": "1995-04-21",
+        "password": "stringstaaa"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "manuel@example.com",
+        "first_name": "Manuel",
+        "last_name": "Ocampo",
+        "birth_date": "1987-06-08",
+        "password": "holasoymanuel"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "ana@example.com",
+        "first_name": "Ana",
+        "last_name": "V\u00e1zquez",
+        "birth_date": "2000-05-08",
+        "password": "holasoy4N4"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "andy@example.com",
+        "first_name": "Andy",
+        "last_name": "Pizano",
+        "birth_date": "2001-05-15",
+        "password": "holassdad$21e"
+    },
+    {
+        "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "email": "pedro@example.com",
+        "first_name": "Pedro",
+        "last_name": "Rodr\u00edguez",
+        "birth_date": "1987-07-17",
+        "password": "holasoypedro$%&"
+    }
+]

@@ -1,4 +1,5 @@
 #Python
+import json
 from uuid import UUID 
 from datetime import date
 from datetime import datetime 
@@ -12,6 +13,7 @@ from pydantic import Field
 # FastAPI
 from fastapi import FastAPI
 from fastapi import status
+from fastapi import Body
 app = FastAPI()
 
 # Models
@@ -71,9 +73,9 @@ def home():
     summary='Register a User',
     tags=["Users"]
     )
-def signup():
+def signup(user: UserRegister = Body(...)):
     '''
-    # Signup
+    ![Signup](https://t4.ftcdn.net/jpg/04/09/12/37/360_F_409123771_SSIjSUiM9AXVyEUVfxDT2zmoKmJDQALi.jpg)
     
     This Path operation register a user in the app
     
@@ -85,9 +87,18 @@ def signup():
         - email: EmailStr
         - first_name: str
         - last_name: str
-        - birth_date: str
+        - birth_date: date
     '''
-
+    with open("users.json", "r+", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        user_dict = user.dict()
+        user_dict["user_id"] = str(user_dict["user_id"])
+        user_dict["birth_date"] = str(user_dict["birth_date"])
+        results.append(user_dict)
+        f.seek(0)
+        f.write(json.dumps(results))
+        return user
+    
 ### Login a User
 @app.post(
     path="/login",
