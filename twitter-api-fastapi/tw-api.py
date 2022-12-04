@@ -1,19 +1,22 @@
 #Python
 import json
 from uuid import UUID 
-from datetime import date
-from datetime import datetime 
-from typing import Optional, List
+from datetime import (date, datetime)
+from typing import (Optional, List)
 
 #PyDantic
-from pydantic import BaseModel
-from pydantic import EmailStr
-from pydantic import Field
+from pydantic import(
+    BaseModel,
+    EmailStr,
+    Field
+    )
  
 # FastAPI
-from fastapi import FastAPI
-from fastapi import status
-from fastapi import Body
+from fastapi import(
+    FastAPI,
+    status,
+    Body,
+    )
 app = FastAPI()
 
 # Models
@@ -119,7 +122,24 @@ def login():
     tags=["Users"]
     )
 def show_all_users():
-    pass
+    '''
+    ![Show-users](https://www.iconpacks.net/icons/1/free-user-group-icon-296-thumb.png)
+    
+    This path operation shows all users in the app
+    
+    Parameters:
+        -
+    
+    Returns a json list with all users is the app, with the following keys:
+        - user_id: UUID
+        - email: EmailStr
+        - first_name: str
+        - last_name: str
+        - birth_date: datetime
+    '''
+    with open("users.json", "r", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        return results
 
 ### Show a User
 @app.get(
