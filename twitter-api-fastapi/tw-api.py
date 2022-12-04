@@ -57,7 +57,7 @@ class Tweet(BaseModel):
         max_length=256
         )
     created_at: datetime = Field(default=datetime.now())
-    update_at: Optional[datetime] = Field(default=None)
+    updated_at: Optional[datetime] = Field(default=None)
     by: User = Field(...)
 
 # Path Operation
@@ -195,8 +195,36 @@ def home():
     summary="Post a Tweet",
     tags=["Tweets"]
 )
-def post():
-    pass
+def post(tweet: Tweet = Body(...)):
+    '''
+    ![Post-tw](https://thumbs.dreamstime.com/b/add-tweet-post-button-icon-vector-twitter-social-media-element-219099895.jpg)
+    # Post a Tweet
+    ## This Path operation post a tweet in the app
+    
+    Parameters:
+        - Request Body parameter:
+            - tweet: Tweet
+            
+    Returns a json with the basic tweet information:
+        - tweet_id: UUID
+        - content: str
+        - created_at: datetime
+        - update_at: Optional[datetime]
+        - by: User
+    '''
+    with open("tweets.json", "r+", encoding="utf-8") as t:
+        results = json.loads(t.read())
+        tweet_dict = tweet.dict()
+        tweet_dict["tweet_id"] = str(tweet_dict["tweet_id"])
+        tweet_dict["created_at"] = str(tweet_dict["created_at"])
+        tweet_dict["updated_at"] = str(tweet_dict["updated_at"])
+        tweet_dict["by"]["user_id"] = str(tweet_dict["by"]["user_id"])
+        tweet_dict["by"]["birth_date"] = str(tweet_dict["by"]["birth_date"])
+        
+        results.append(tweet_dict)
+        t.seek(0)
+        t.write(json.dumps(results))
+        return tweet
 
 ### Show a Tweet
 @app.get(

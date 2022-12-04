@@ -1,1 +1,28 @@
-[]
+[
+    {
+        "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "content": "This is the first Tweet for testing, follow me!!",
+        "created_at": "2022-12-04 03:13:12.653606",
+        "updated_at": "None",
+        "by": {
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "email": "antonella@example.com",
+            "first_name": "Antonella",
+            "last_name": "string",
+            "birth_date": "1995-04-21"
+        }
+    },
+    {
+        "tweet_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "content": "FastApi Tweet follow me in tw as andydollin",
+        "created_at": "2022-12-04 03:27:30.915585",
+        "updated_at": "2022-12-04 09:28:54.310000+00:00",
+        "by": {
+            "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "email": "andy@example.com",
+            "first_name": "Andy",
+            "last_name": "Pizano",
+            "birth_date": "2001-05-15"
+        }
+    }
+]
