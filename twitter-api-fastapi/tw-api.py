@@ -185,7 +185,25 @@ def update_a_user():
     tags=["Tweets"]
     )
 def home():
-    return {"Twitter API":"Working!"}
+    '''
+    # Tw-api
+    ![home](https://iconomator.com/wp-content/uploads/2020/03/tweet.png)
+    
+    This path operation shows all tweets in the app
+    
+    Parameters:
+        -
+    
+    Returns a json list with all tweets is the app, with the following keys:
+        - tweet_id: UUID
+        - content: str
+        - created_at: datetime
+        - updated_at: Optional[datetime]
+        - by: User
+    '''
+    with open("tweets.json", "r", encoding="utf-8") as t:
+        results = json.loads(t.read())
+        return results
 
 ### Post a Tweet
 @app.post(
