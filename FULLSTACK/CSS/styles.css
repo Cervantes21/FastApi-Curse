@@ -1,0 +1,138 @@
+html {
+    font-family: monospace;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+/* --- figure --- */
+figure {
+    margin: 2% 0 0 20%;
+}
+/* --- figure --- */
+
+/* --- video --- */
+
+video {
+    border-radius: 0 9% 0 9%;
+    box-shadow: 2px 22px 55px 1px #1e272e;
+    -webkit-box-shadow: 2px 22px 55px 1px #1e272e;
+}
+
+/* ------video------ */
+
+/* ---- Body-Header ---- */
+
+body {
+    background-color: #ffc048;
+}
+
+/* ---- Barra de navegación ---- */
+.header-list {
+    background-color: #1e272e;
+    height: 40px;
+    width: 100%;
+    margin: auto;
+}
+
+nav .header-list__item {
+    float: right;
+    margin-right: 10px;
+}
+
+.header-list__item {
+    display: inline-block;
+    line-height: 40px;
+    margin: 0 0px;
+}
+
+.header-list__item a {
+    color: #ecf0f1;
+    font-size: 18px;
+    padding: 7px 13px;
+    border-radius: 7px;
+    text-decoration: none; 
+}
+
+/* ---Activers and hover--- */
+.header-list__item a:hover {
+    color:#55E6C1;
+}
+
+.header-list__item a:active {
+    color: #FC427B;
+}
+
+/* --- Icon checkbtn--- */
+
+.checkbtn {
+    font-size: 30px;
+    color: #ecf0f1;
+    float: right;
+    line-height: 40px;
+    margin-right: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+#header-section {
+    background: url(https://pixabay.com/get/g66fcc6d4034c340d7fa3d3ada558ed8005d3f6fd2aba3ee7d4eda5d88af64b4d5af03a8ab4fe2bf4f6789b657ae75383.jpg);
+    background-size: cover;
+    background-position: center center;
+    height: calc(100vh - 80px);
+}
+
+/* -------------------- */
+
+/* Responsive design */
+@media (max-width: 925px){
+    .header-title {
+        padding: 3px;
+    }
+    nav ul li a{
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 858px){
+    .checkbtn{
+        display: block;
+    }
+    ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background:#1e272e;
+        top: 40px;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+    }
+    nav ul li{
+        display: block;
+        margin: 20px 0;
+    }
+    nav ul li a{
+        font-size: 16px;
+    }
+    li a:hover, li a.active{
+        background: none;
+        color: #FC427B;
+    }
+    #check:checked ~ ul{
+        left: 0;
+    }
+    .header-title {
+        text-align: justify;
+    }
+}
+/* --------------------------------------- */
