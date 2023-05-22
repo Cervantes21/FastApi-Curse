@@ -19,7 +19,7 @@
 
 # --- Método GET con HTMLResponse --- #
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.responses import HTMLResponse
 
 # Agregamos el diccionario con import.
@@ -66,7 +66,7 @@ def get_cat_id(id: int):
             return value
     return []
 
-# --- Parametros QUERY --- #
+# --- Parámetros QUERY --- #
 
 @app.get('/cats/', tags=['Cat Breed'])
 def get_breed_by_id(id_cat: int = None, breed_cat: str = None):
@@ -125,3 +125,43 @@ def get_breed_by_id(id_cat: int = None, breed_cat: str = None):
     # Si no se proporciona ni id_cat ni breed_cat, devuelve "Proporcione el parámetro ID o breed"
     else:
         return "Please provide either ID or breed parameter"
+
+## --- Método POST --- ##
+
+@app.post('/cats/', tags=['Cat Breed'])
+def create_cat(id_cat:int=Body(), breed:str=Body(), weight:str=Body(), size:str=Body(), color:str=Body()):
+    '''
+    Create a new Breed of Cat:
+    
+    - First choose a id_cat (Is a number +36)
+    - Name of breed:
+    - What is the average weight of the cat?
+    - What is the averange size of cat?
+    - Color?
+    
+    # Example:
+        "id": 1,
+        "breed": "siamese",
+        "weight": "8-12 lbs",
+        "size": "Medium",
+        "color": "Seal point, chocolate point, blue point, lilac point"
+    '''
+    cats.append({
+        'id': id_cat,
+        'breed': breed,
+        'weight': weight,
+        'size': size,
+        'color': color
+    })
+    return cats
+
+
+## --- tokens --- ##
+
+@app.post("/login", tags=["auth"])
+def login(user: User):
+    if (user.email == "admin@gmail.com" and user.password == "123456"):
+        token: str = create_token(user.dict())
+        return JSONResponse(status_code=200, content=token)
+    else:
+        return JSONResponse(status_code=401, content={"message": "Credenciales inválidas, intente de nuevo"})
